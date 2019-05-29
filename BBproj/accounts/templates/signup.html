@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>회 원 가 입</h1>
+
+<form action="{% url 'signup' %}" method="post">
+    {%  csrf_token %}
+    아이디:
+    <br>
+    <input name="id" type="text" value="">
+    <br>
+    비밀번호:
+    <br>
+    <input name="password1" type="password" value="">
+    <br>
+    비밀번호 확인:
+    <br>
+    <input name="password2" type="password" value="">
+
+   
+    <br>
+    닉네임 : <input name="nickname" type="text" value="">
+    <br>
+    지역? : <input name="region" type="text" value="">
+    <br>
+    <input class="btn btn-primary" type="submit" value="회원가입"> 
+
+</form>
+
+{% endblock %}

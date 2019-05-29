@@ -1,0 +1,11 @@
+{%extends 'base.html' %}
+{%block content%}
+<!--views로부터 context를 받아오는데 context안에 있는 post를 쓸꺼임-->>
+<p>글제목 : {{post.title}}</p>
+<p>글 내용 : {{post.content}}</p>
+<!--<p>글 작성시간 : {{post.created_at}}</p>-->
+<a href="{% url 'index' %}">Home</a>
+
+<a href="{% url 'update' post.id %}">글수정 버튼</a>
+<a href="{% url 'delete' post.id %}">글 삭제</a>
+{%endblock%}

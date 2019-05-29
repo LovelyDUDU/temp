@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>로그인</h1>
+
+<form method="POST" action="{% url 'login'%}">
+    {% csrf_token %}
+    아이디:
+    <br>
+    <input name="id" type="text" value="">
+    <br>
+    비밂번호:
+    <br>
+    <input name="password" type="password" value="">
+    <br>
+    <br>
+    <input class="btn btn-primary" type="submit" value="Login">
+</form>
+
+{% endblock %}
+
+{% if error %}
+{{ error }}
+<br>
+<br>
+{% endif %}

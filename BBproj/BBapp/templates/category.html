@@ -1,0 +1,14 @@
+{%extends 'base.html' %}
+{%block content%}
+<h1>검색결과</h1>
+
+{% for post in posts %}
+<a href="{% url 'detail' post.id %}">
+    <p style="font-family: 'Gugi', cursive">글 번호 : {{post.id}}</p>
+    <p>카테고리 : {{post.category}}</p>
+    <p>글 제목 : {{post.title}}</p>
+</a>
+<hr>
+<br style="color:white;">
+{%endfor%}
+{%endblock%}

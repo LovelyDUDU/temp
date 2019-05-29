@@ -1,0 +1,21 @@
+{%extends 'base.html' %}
+{%block content%}
+<h1>글쓰기 페이지</h1>
+<form action="{% url 'write' %}" method="POST">
+    <!--GET 은 검색을 위함, POST는 데이터를 전송하고 전송된 데이터에 대한 결과값을 돌려받기 위함-->
+    {%csrf_token%}
+    <p>제목</p>
+    <input type="text" name="title">
+    <p>내용</p>
+    <textarea name="content" id="" cols="30" rows="10"></textarea>
+    <br>
+    <input type="submit" value="글쓰기">
+
+    <select name="category" id="">
+        <option value="공지">공지</option>
+        <option value="자유">자유</option>
+        <option value="질문">질문</option>
+    </select>
+</form>
+<a href="{% url 'index' %}">Home</a>
+{%endblock%}

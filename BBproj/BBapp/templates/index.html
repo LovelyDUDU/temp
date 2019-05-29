@@ -1,0 +1,75 @@
+{%extends 'base.html' %}
+{%block content%}
+<h1 style="color : violet">Hello Django!</h1>
+<br> <br>
+<div class="container">
+    <ul class="nav justify-content-center">
+        <li>
+            <form action="{% url 'category' %}">
+                <select name="category" id="">
+                    <option value="공지">공지</option>
+                    <option value="자유">자유</option>
+                    <option value="질문">질문</option>
+                </select>
+                <input type="submit" value="분류">
+            </form>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+            <form action="{% url 'search' %}">
+                <select name="category2" id="">
+                    <option value="제목">제목</option>
+                    <option value="내용">내용</option>
+                    <option value="제목+내용">제목+내용</option>
+                </select>
+                <input type="text" name="search">
+                <input type="submit" value="검색">
+            </form>
+        </li>
+
+
+    </ul>
+    {% for post in posts %}
+    <!-- views.py에서 보낸 context안에 있는 posts를 씀-->
+    <!-- post는 그냥 posts를 하나하나 지정? 할떄 쓸 이름(변수)-->
+    <a href="{% url 'detail' post.id %}">
+        <!-- detail 을 가져올껀데 그 뒤에 post.id도 가져옴-->
+        <p style="font-family: 'Yeon Sung', cursive">글 번호 : {{post.id}}</p>
+        <p>카테고리 : {{post.category}}</p>
+        <p>글 제목 : {{post.title}}</p>
+    </a>
+    <hr>
+    <br style="color:white;">
+    {%endfor%}
+
+
+    {% if user.is_authenticated %}
+    <p>환영합니다 {{user.username}}님</p>
+    <form action="{%url 'logout'%}" method="POST">
+        {%csrf_token%}
+        <input type="submit" value="로그아웃">
+    </form>
+    
+    {% else %}
+    <p>로그인 해주세요</p>
+    <a href="{%url 'signup'%}">회원가입</a>
+    <a href="{%url 'login'%}">로그인</a>
+    {% endif %}
+    
+    <button type="button" class="btn btn-dark"><a href="{% url 'write' %}" id="w_button">글쓰기 버튼</a></button>
+    <nav>
+        <ul class="pagination">
+            {% if posts.has_previous %}
+            <li class="page-item "><a class="page-link" href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+            {% endif %}
+            {% if posts.number > 2 %}
+            <li class="page-item"><a class="page-link" href="?page=1">&lt;&lt;</a></li>
+            {%endif%}
+            {% if posts.has_next %}
+            <li class="page-item ml-auto"><a class="page-link" href="?page={{ posts.next_page_number }}">&gt;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{%endblock%}
